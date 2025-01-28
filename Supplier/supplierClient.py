@@ -2,16 +2,17 @@
 # -*- coding:utf-8 -*-
 #=====================================================================
 #   FileName:  supplierClient.py 
-#   Purpose:  Socket Supplier client  (More complex than client 1).
-#   Version:  1.1
+#   Purpose:  Socket Supplier Client Windows Version (More complex than client 1).
+#   Version:  0.0.1
 #   Author:  Jishan                  
 #   Email:  unicoder@sohu.com
-#   Date:  2024-07-09 23:36  Modify-Date:  2024-08-05 01:00
+#   Date:  2024-12-01 23:36  Modify-Date:  2024-12-01 23:36
 #=====================================================================
 import socket
 import struct
 from time import sleep
-from helper import genValue, getHostFromConfig, getConnect
+from helper import genValue, getHostFromConfig, getConnectString, DataType
+import clientMeter
 
 index = 1
 
@@ -70,7 +71,7 @@ def start_client():
 
 	# connection require
 	# clientSocket.connect(('127.0.0.1', 10001))
-	dicConnectStr = getConnect()
+	dicConnectStr = getConnectString()
 	clientSocket.connect((dicConnectStr['url'], dicConnectStr['port']))
 	
 
@@ -83,9 +84,11 @@ def start_client():
 
 	# Below selfs versa will communication by this connect looply:
 	while True: 
-		sleep(10)
+		sleep(5)
 		
-		client_msg = msg_data('1')
+		msg_type = '1'  # class help.DataType.PCState.value = 1
+		# client_msg = msg_data('1')
+		client_msg = "|DATA|" + msg_type + "|" + clientMeter.invoke_meter()
 
 		if not client_msg:  # null message will hang up server versus.
 			continue
