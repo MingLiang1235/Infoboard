@@ -1,7 +1,6 @@
 # Infoboard
 Switch infomation from supplier to consumer
 
-消息板。
 
 提供了获取机器信息的例程。
 
